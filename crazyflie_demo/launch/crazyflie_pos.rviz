@@ -79,7 +79,7 @@ Visualization Manager:
       Shaft Length: 0.1
       Shaft Radius: 0.02
       Shape: Arrow
-      Topic: /crazyflie/goal
+      Topic: /cf1/goal
       Value: true
   Enabled: true
   Global Options:
