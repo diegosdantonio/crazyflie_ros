@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="uri" default="radio://0/80/2M" />
+  <arg name="uri" default="radio://0/80/2M/E7E7E7E701" />
   <arg name="joy_dev" default="/dev/input/js0" />
 
   <include file="$(find crazyflie_driver)/launch/crazyflie_server.launch">
@@ -9,11 +9,17 @@
 
   <group ns="crazyflie">
     <!--<param name="crazyflie/pid_rate/yaw_kp" value="200"/>-->
-    <include file="$(find crazyflie_driver)/launch/crazyflie_add.launch">
-      <arg name="uri" value="$(arg uri)" />
-      <arg name="tf_prefix" value="crazyflie" />
-      <arg name="enable_logging" value="True" />
-    </include>
+    <node pkg="crazyflie_driver" type="crazyflie_add" name="crazyflie_add" output="screen">
+      <param name="uri" value="$(arg uri)" />
+      <param name="tf_prefix" value="crazyflie" />
+      <param name="enable_logging" value="True" />
+      <rosparam>
+        genericLogTopics: ["log1"]
+        genericLogTopicFrequencies: [100]
+        genericLogTopic_log1_Variables: ["motor.m1", "motor.m2", "motor.m3", "motor.m3"]
+      </rosparam>
+    </node>
+
 
     <node name="joy" pkg="joy" type="joy_node" output="screen" >
       <param name="dev" value="$(arg joy_dev)" />
@@ -30,7 +36,5 @@
 
   <!-- <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot" args="/crazyflie/temperature/temperature"/> -->
 
-  <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot2" args="/crazyflie/battery"/>
 
-  <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot3" args="/crazyflie/rssi"/>
 </launch>
