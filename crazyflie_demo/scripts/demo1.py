@@ -2,8 +2,7 @@
 from demo import Demo
 
 if __name__ == '__main__':
-    demo = Demo(
-        [
+    demo = Demo([
             #x   ,   y,   z, yaw, sleep
             [0.0 , 0.0, 0.5, 0, 2],
             [1.5 , 0.0, 0.5, 0, 2],
